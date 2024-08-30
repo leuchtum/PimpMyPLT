@@ -4,11 +4,12 @@ from matplotlib.figure import Figure
 from matplotlib.rcsetup import cycler
 
 import pimpmyplt
-from pimpmyplt.pimps import PimpFigSizeDINA
+from pimpmyplt.pimps import PimpFigSizeDIN
 from pimpmyplt.pimps import PimpSaveFigPDF
 from pimpmyplt.pimps import PimpSaveFigPNG
 from pimpmyplt.pimps import PimpTightLayout
 from pimpmyplt.pimps import PimpUseTeX
+from pimpmyplt.pimps.figsize import PimpFigSizeCustom
 from pimpmyplt.pimps.text import PimpText
 
 
@@ -25,14 +26,21 @@ def plot() -> Figure:
 
 @pytest.mark.mpl_image_compare
 def test_figsize_A6L() -> Figure:
-    collections = pimpmyplt.compose([PimpFigSizeDINA(din_number=6, mode="landscape")])
+    collections = pimpmyplt.compose([PimpFigSizeDIN(din_format="A6", mode="landscape")])
     plt.rcParams.update(collections)
     return plot()
 
 
 @pytest.mark.mpl_image_compare
 def test_figsize_A3P() -> Figure:
-    collections = pimpmyplt.compose([PimpFigSizeDINA(din_number=3, mode="portrait")])
+    collections = pimpmyplt.compose([PimpFigSizeDIN(din_format="A3", mode="portrait")])
+    plt.rcParams.update(collections)
+    return plot()
+
+
+@pytest.mark.mpl_image_compare
+def test_figsize_custom() -> Figure:
+    collections = pimpmyplt.compose([PimpFigSizeCustom(width=12, height=2)])
     plt.rcParams.update(collections)
     return plot()
 
@@ -56,7 +64,7 @@ def test_tightlayout_plus_figsize_A6L() -> Figure:
     collections = pimpmyplt.compose(
         [
             PimpTightLayout(),
-            PimpFigSizeDINA(din_number=6, mode="landscape"),
+            PimpFigSizeDIN(din_format="A6", mode="landscape"),
         ],
     )
     plt.rcParams.update(collections)

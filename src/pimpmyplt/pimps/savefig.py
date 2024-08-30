@@ -7,7 +7,7 @@ from pimpmyplt.pimps.abc import Pimper
 
 @dataclass(kw_only=True, frozen=True)
 class _PimpSaveFig:
-    directory: Path | None = None
+    directory: Path | None = None  # Only applies to interactive savefig!
 
     def _root_dict(self) -> dict[str, Any]:
         if self.directory is not None:
