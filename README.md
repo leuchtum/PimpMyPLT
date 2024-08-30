@@ -2,6 +2,12 @@
 
 This package adds an pythonic way to modify your `matplotlib.rcParams` .
 
+# Installation
+
+```console
+> pip install pimpmyplt
+```
+
 # Usage
 
 ```python
@@ -28,5 +34,6 @@ print(dict(composed))
 
 Well, good question as there are [easy
 ways](https://matplotlib.org/stable/users/explain/customizing.html) to modify
-the rcParams. PimpMyPLT is just more pythonic. It's easy to write your own
-`Pimper` class (like `PimpUseTeX` , ...) and add functionality. 
+the rcParams. PimpMyPLT is just a bit more pythonic. It's easy to write your own
+`Pimper` class (like `PimpUseTeX` , ...) and add functionality. But **this project
+is in a very early development stage**, so don't rely on it...

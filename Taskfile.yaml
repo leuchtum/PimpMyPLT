@@ -96,3 +96,11 @@ tasks:
       "Run mypy"
     cmds:
       - mypy .
+
+  publish:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Publish package"
+    cmds:
+      - poetry publish --build
