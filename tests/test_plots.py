@@ -9,15 +9,17 @@ from pimpmyplt.pimps import PimpSaveFigPDF
 from pimpmyplt.pimps import PimpSaveFigPNG
 from pimpmyplt.pimps import PimpTightLayout
 from pimpmyplt.pimps import PimpUseTeX
+from pimpmyplt.pimps.color import PimpColorPredefined
 from pimpmyplt.pimps.figsize import PimpFigSizeCustom
 from pimpmyplt.pimps.text import PimpText
 
 
-def plot() -> Figure:
+def plot(n_lines: int = 1) -> Figure:
     fig, ax = plt.subplots()
     x = range(100)
-    y = [i**2 for i in x]
-    ax.plot(x, y)
+    for i in range(n_lines):
+        y = [xi**2 + i for xi in x]
+        ax.plot(x, y)
     ax.set_title(r"Title")
     ax.set_xlabel(r"x")
     ax.set_ylabel(r"y")
@@ -103,3 +105,17 @@ def test_text() -> Figure:
     collections = pimpmyplt.compose([PimpText(size=30)])
     plt.rcParams.update(collections)
     return plot()
+
+
+@pytest.mark.mpl_image_compare
+def test_color_normal() -> Figure:
+    collections = pimpmyplt.compose([PimpColorPredefined(mode="normal")])
+    plt.rcParams.update(collections)
+    return plot(5)
+
+
+@pytest.mark.mpl_image_compare
+def test_color_gray() -> Figure:
+    collections = pimpmyplt.compose([PimpColorPredefined(mode="gray_normal")])
+    plt.rcParams.update(collections)
+    return plot(5)
