@@ -1,0 +1,98 @@
+version: '3'
+
+vars: 
+  CONDA_ENV: "pimpmyplt"
+  
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
+        
+  reinstall:    
+    deps:
+      - check-conda-precondition
+    desc:
+      "Reinstall package via poetry"
+
+    cmds:
+      - poetry install --sync
+
+  bumpversion-major:    
+    deps:
+      - check-conda-precondition
+    desc:
+      "Major bump version"
+
+    cmds:
+      - bump-my-version bump -v major
+
+  bumpversion-minor:    
+    deps:
+      - check-conda-precondition
+    desc:
+      "Minor bump version"
+
+    cmds:
+      - bump-my-version bump -v minor
+
+  bumpversion-patch:    
+    deps:
+      - check-conda-precondition
+    desc:
+      "Patch bump version"
+
+    cmds:
+      - bump-my-version bump -v patch
+
+  check-conda-precondition:
+    preconditions:
+      - sh: '[ {{.ACTIVE_CONDA_ENV}} = {{.CONDA_ENV}} ] && exit 0 || exit 1'
+        msg: "
+        The conda environment is not correct. Please activate the {{.CONDA_ENV}} environment.
+        Run: conda activate {{.CONDA_ENV}}
+        "
+    vars:
+      ACTIVE_CONDA_ENV: 
+        sh: conda info --json | jq '.active_prefix_name'
+
+  test:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Run tests"
+    cmds:
+      - pytest --mpl --mpl-baseline-path=tests/baseline --mpl-results-path=tests/results --mpl-generate-summary=html
+
+  test-baseline:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Build baseline images"
+    cmds:
+      - pytest --mpl-generate-path=tests/baseline
+
+  open-test-results:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Open test results"
+    cmds:
+      - open tests/results/fig_comparison.html
+
+  ruff:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Run ruff"
+    cmds:
+      - ruff format .
+      - ruff check . 
+
+  mypy:
+    deps:
+      - check-conda-precondition
+    desc:
+      "Run mypy"
+    cmds:
+      - mypy .
