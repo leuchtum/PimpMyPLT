@@ -50,3 +50,11 @@ class PimpColorPredefined(Pimper):
 
     def build(self) -> dict[str, Any]:
         return {"axes.prop_cycle": cycler(color=_OPTIONS[self.mode])}
+
+
+@dataclass(kw_only=True, frozen=True)
+class PimpColorCustom(Pimper):
+    colors: list[str]
+
+    def build(self) -> dict[str, Any]:
+        return {"axes.prop_cycle": cycler(color=self.colors)}

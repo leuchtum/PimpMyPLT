@@ -9,6 +9,7 @@ from pimpmyplt.pimps import PimpSaveFigPDF
 from pimpmyplt.pimps import PimpSaveFigPNG
 from pimpmyplt.pimps import PimpTightLayout
 from pimpmyplt.pimps import PimpUseTeX
+from pimpmyplt.pimps.color import PimpColorCustom
 from pimpmyplt.pimps.color import PimpColorPredefined
 from pimpmyplt.pimps.figsize import PimpFigSizeCustom
 from pimpmyplt.pimps.text import PimpText
@@ -18,7 +19,7 @@ def plot(n_lines: int = 1) -> Figure:
     fig, ax = plt.subplots()
     x = range(100)
     for i in range(n_lines):
-        y = [xi**2 + i for xi in x]
+        y = [xi**2 + 1000 * i for xi in x]
         ax.plot(x, y)
     ax.set_title(r"Title")
     ax.set_xlabel(r"x")
@@ -119,3 +120,11 @@ def test_color_gray() -> Figure:
     collections = pimpmyplt.compose([PimpColorPredefined(mode="gray_normal")])
     plt.rcParams.update(collections)
     return plot(5)
+
+
+@pytest.mark.mpl_image_compare
+def test_color_custom() -> Figure:
+    colors = ["r", "g", "b"]
+    collections = pimpmyplt.compose([PimpColorCustom(colors=colors)])
+    plt.rcParams.update(collections)
+    return plot(9)
