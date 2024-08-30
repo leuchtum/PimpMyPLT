@@ -4,7 +4,7 @@ from pimpmyplt.definitions.tightlayout import PimpTightLayout
 from pimpmyplt.definitions.usetex import PimpUseTeX
 from pimpmyplt.util import compose
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __all__ = [
     "compose",
     "PimpFigSizeDINA",
