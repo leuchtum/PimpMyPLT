@@ -64,7 +64,7 @@ tasks:
     cmds:
       - pytest --mpl --mpl-baseline-path=tests/baseline --mpl-results-path=tests/results --mpl-generate-summary=html
 
-  test-baseline:
+  baseline:
     deps:
       - check-conda-precondition
     desc:
@@ -72,7 +72,7 @@ tasks:
     cmds:
       - pytest --mpl-generate-path=tests/baseline
 
-  open-test-results:
+  results:
     deps:
       - check-conda-precondition
     desc:

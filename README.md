@@ -13,12 +13,12 @@ This package adds an pythonic way to modify your `matplotlib.rcParams` .
 ```python
 import matplotlib.pyplot as plt
 import pimpmyplt
-from pimpmyplt.pimps import PimpUseTeX, PimpTightLayout, PimpSaveFig
+from pimpmyplt.pimps import PimpUseTeX, PimpTightLayout, PimpSaveFigPNG
 
 modifications = [
     PimpUseTeX(),
     PimpTightLayout(),
-    PimpSaveFig(format="png", dpi=400),
+    PimpSaveFigPNG(dpi=400),
 ]
 composed = pimpmyplt.compose(modifications)
 plt.rcParams.update(composed)

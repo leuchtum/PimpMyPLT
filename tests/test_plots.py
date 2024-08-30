@@ -5,9 +5,11 @@ from matplotlib.rcsetup import cycler
 
 import pimpmyplt
 from pimpmyplt.pimps import PimpFigSizeDINA
-from pimpmyplt.pimps import PimpSaveFig
+from pimpmyplt.pimps import PimpSaveFigPDF
+from pimpmyplt.pimps import PimpSaveFigPNG
 from pimpmyplt.pimps import PimpTightLayout
 from pimpmyplt.pimps import PimpUseTeX
+from pimpmyplt.pimps.text import PimpText
 
 
 def plot() -> Figure:
@@ -63,7 +65,7 @@ def test_tightlayout_plus_figsize_A6L() -> Figure:
 
 @pytest.mark.mpl_image_compare
 def test_savefig_PNG_highQ() -> Figure:
-    collections = pimpmyplt.compose([PimpSaveFig(format="png", dpi=400)])
+    collections = pimpmyplt.compose([PimpSaveFigPNG(dpi=400)])
     plt.rcParams.update(collections)
     return plot()
 
@@ -71,7 +73,7 @@ def test_savefig_PNG_highQ() -> Figure:
 @pytest.mark.mpl_image_compare
 def test_savefig_PDF_highQ() -> Figure:
     # This will be a PNG anyway, because the test framework does not support PDF
-    collections = pimpmyplt.compose([PimpSaveFig(format="pdf", dpi=400)])
+    collections = pimpmyplt.compose([PimpSaveFigPDF()])
     plt.rcParams.update(collections)
     return plot()
 
@@ -84,5 +86,12 @@ def test_custom_compose() -> Figure:
         "axes.prop_cycle": cycler(color=["r", "g", "b", "y"]),
     }
     collections = pimpmyplt.compose([custom, PimpUseTeX()])
+    plt.rcParams.update(collections)
+    return plot()
+
+
+@pytest.mark.mpl_image_compare
+def test_text() -> Figure:
+    collections = pimpmyplt.compose([PimpText(size=30)])
     plt.rcParams.update(collections)
     return plot()
