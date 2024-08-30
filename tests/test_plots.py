@@ -3,7 +3,11 @@ from matplotlib import pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.rcsetup import cycler
 
-import pimpmyplt as pimp
+import pimpmyplt
+from pimpmyplt.pimps import PimpFigSizeDINA
+from pimpmyplt.pimps import PimpSaveFig
+from pimpmyplt.pimps import PimpTightLayout
+from pimpmyplt.pimps import PimpUseTeX
 
 
 def plot() -> Figure:
@@ -19,36 +23,39 @@ def plot() -> Figure:
 
 @pytest.mark.mpl_image_compare
 def test_figsize_A6L() -> Figure:
-    collections = pimp.compose([pimp.PimpFigSizeDINA(din_number=6, mode="landscape")])
+    collections = pimpmyplt.compose([PimpFigSizeDINA(din_number=6, mode="landscape")])
     plt.rcParams.update(collections)
     return plot()
 
 
 @pytest.mark.mpl_image_compare
 def test_figsize_A3P() -> Figure:
-    collections = pimp.compose([pimp.PimpFigSizeDINA(din_number=3, mode="portrait")])
+    collections = pimpmyplt.compose([PimpFigSizeDINA(din_number=3, mode="portrait")])
     plt.rcParams.update(collections)
     return plot()
 
 
 @pytest.mark.mpl_image_compare
 def test_usetex() -> Figure:
-    collections = pimp.compose([pimp.PimpUseTeX()])
+    collections = pimpmyplt.compose([PimpUseTeX()])
     plt.rcParams.update(collections)
     return plot()
 
 
 @pytest.mark.mpl_image_compare
 def test_tightlayout() -> Figure:
-    collections = pimp.compose([pimp.PimpTightLayout()])
+    collections = pimpmyplt.compose([PimpTightLayout()])
     plt.rcParams.update(collections)
     return plot()
 
 
 @pytest.mark.mpl_image_compare
 def test_tightlayout_plus_figsize_A6L() -> Figure:
-    collections = pimp.compose(
-        [pimp.PimpTightLayout(), pimp.PimpFigSizeDINA(din_number=6, mode="landscape")],
+    collections = pimpmyplt.compose(
+        [
+            PimpTightLayout(),
+            PimpFigSizeDINA(din_number=6, mode="landscape"),
+        ],
     )
     plt.rcParams.update(collections)
     return plot()
@@ -56,7 +63,7 @@ def test_tightlayout_plus_figsize_A6L() -> Figure:
 
 @pytest.mark.mpl_image_compare
 def test_savefig_PNG_highQ() -> Figure:
-    collections = pimp.compose([pimp.PimpSaveFig(format="png", dpi=400)])
+    collections = pimpmyplt.compose([PimpSaveFig(format="png", dpi=400)])
     plt.rcParams.update(collections)
     return plot()
 
@@ -64,7 +71,7 @@ def test_savefig_PNG_highQ() -> Figure:
 @pytest.mark.mpl_image_compare
 def test_savefig_PDF_highQ() -> Figure:
     # This will be a PNG anyway, because the test framework does not support PDF
-    collections = pimp.compose([pimp.PimpSaveFig(format="pdf", dpi=400)])
+    collections = pimpmyplt.compose([PimpSaveFig(format="pdf", dpi=400)])
     plt.rcParams.update(collections)
     return plot()
 
@@ -76,6 +83,6 @@ def test_custom_compose() -> Figure:
         "lines.linestyle": "--",
         "axes.prop_cycle": cycler(color=["r", "g", "b", "y"]),
     }
-    collections = pimp.compose([custom, pimp.PimpUseTeX()])
+    collections = pimpmyplt.compose([custom, PimpUseTeX()])
     plt.rcParams.update(collections)
     return plot()

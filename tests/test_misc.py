@@ -1,6 +1,6 @@
 import pytest
 
-import pimpmyplt.definitions
+import pimpmyplt
 
 
 def test_compose_raises() -> None:

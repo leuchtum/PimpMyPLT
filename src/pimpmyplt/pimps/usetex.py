@@ -1,9 +1,9 @@
 from typing import Any
 
-from pimpmyplt.definitions import PimpRCParams
+from pimpmyplt.pimps.abc import Pimper
 
 
-class PimpUseTeX(PimpRCParams):
+class PimpUseTeX(Pimper):
     def build(self) -> dict[str, Any]:
         return {
             "text.usetex": True,

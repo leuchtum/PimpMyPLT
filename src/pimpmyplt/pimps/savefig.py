@@ -2,11 +2,11 @@ from dataclasses import dataclass
 from typing import Any
 from typing import Literal
 
-from pimpmyplt.definitions import PimpRCParams
+from pimpmyplt.pimps.abc import Pimper
 
 
 @dataclass(kw_only=True, frozen=True)
-class PimpSaveFig(PimpRCParams):
+class PimpSaveFig(Pimper):
     dpi: int
     format: Literal["png", "pdf"]
 

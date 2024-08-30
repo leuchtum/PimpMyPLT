@@ -56,7 +56,7 @@ tasks:
       ACTIVE_CONDA_ENV: 
         sh: conda info --json | jq '.active_prefix_name'
 
-  test:
+  tests:
     deps:
       - check-conda-precondition
     desc:
