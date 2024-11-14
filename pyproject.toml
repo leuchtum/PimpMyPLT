@@ -15,7 +15,7 @@ mypy = "^1.11.2"
 ruff = "^0.6.2"
 pytest = "^8.3.2"
 pytest-mpl = "^0.17.0"
-bump-my-version = "^0.26.0"
+bump-my-version = ">=0.26,<0.29"
 
 
 [tool.bumpversion]
